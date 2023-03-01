@@ -53,6 +53,7 @@
                 {{$post->user_name}}
             </x-title>
             {{$post->text}}
+            <img src="{{ asset('/storage/'.$post->image) }}" alt="">
         </x-card-body>
     </x-card>
     @endforeach

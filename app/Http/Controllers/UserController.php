@@ -49,7 +49,10 @@ class UserController extends Controller
 
         if($user)
         {
-            return view('profile.friends', compact('user'));
+            $friends = FriendList::query()
+            ->where('user', $user->id)
+            ->get();
+            return view('profile.friends', compact('user', 'friends'));
         }
 
         return abort(404);
@@ -115,6 +118,7 @@ class UserController extends Controller
     public function removeFriend(Request $request)
     {
         $remove = $request->input('remove');
+        $user = $request->input('user');
 
         $request = ModelsRequest::query()
         ->where('request_from', '=', auth()->user()->id)
@@ -128,11 +132,11 @@ class UserController extends Controller
         else
         {
             FriendList::query()
-            ->where('user', '=', auth()->user()->id)
+            ->where('user', '=', $user)
             ->where('friend', '=', $remove)
             ->delete();
             FriendList::query()
-            ->where('friend', '=', auth()->user()->id)
+            ->where('friend', '=', $user)
             ->where('user', '=', $remove)
             ->delete();
 

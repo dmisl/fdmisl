@@ -9,6 +9,9 @@
     <x-title>
         {{ $user->name }}
     </x-title>
+    <a href="{{ route('profile.friends', $user->id) }}">
+        {{ __('Список друзів') }}
+    </a>
     @if(auth()->user()->id != $user->id)
     @if(friendRequest($user->id))
     <x-form action="{{ route('removeFriend') }}">
@@ -40,9 +43,16 @@
     @foreach($posts as $post)
     <x-card>
         <x-card-body>
-            <x-title class="h5">
-                {{ $post->user_name }}
-            </x-title>
+                <x-title class="h5 d-flex">
+                    <div>
+                        {{ $post->user_name }}
+                    </div>
+                    <div class="d-flex ms-auto" style="height: 20px;">
+                    <x-form action="{{ route('post.like') }}">
+                        <button class="border-0 bg-white" type="submit"><img style="width: 20px;" src="{{ asset('save_icon.png') }}" alt=""></button>
+                    </x-form>
+                    </div>
+                </x-title>
             <img src="{{ asset('/storage/'.$post->image) }}" alt="">
             <p>
                 {{ $post->text }}
@@ -51,7 +61,6 @@
                 {{ $post->published_at }}
             </div>
         </x-card-body>
-
     </x-card>
     @endforeach
     @endisset

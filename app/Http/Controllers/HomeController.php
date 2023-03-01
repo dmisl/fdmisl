@@ -29,7 +29,7 @@ class HomeController extends Controller
 
         if($user)
         {
-            return redirect()->route('profile.show', 2007);
+            return redirect()->route('profile.show', $user->id);
         }
         
         return back()->withInput();
