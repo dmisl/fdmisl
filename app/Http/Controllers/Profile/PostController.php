@@ -35,6 +35,23 @@ class PostController extends Controller
 
         return back();
     }
+    public function comment(Request $request)
+    {
+        $validated = $request->validate([
+            'content' => ['required', 'string', 'max:1000'],
+        ]);
+
+        $post = $request->input('post');
+        $content = $validated['content'];
+
+        Comment::create([
+            'user' => auth()->user()->id,
+            'post' => $post,
+            'content' => $content,
+        ]);
+
+        return back();
+    }
     public function like(Request $request)
     {
         $post = $request->input('post');

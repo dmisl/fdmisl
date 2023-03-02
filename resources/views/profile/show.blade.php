@@ -42,33 +42,45 @@
     @isset($posts)
     @foreach($posts as $post)
     <x-card>
-        <x-card-body>
+        <x-card-body class="border-bottom">
                 <x-title class="h5 d-flex">
-                    <div>
+                    <x-avatar width="25px" user_id="{{ $post->user_id }}"></x-avatar>
+                    <div class="ms-2">
                         {{ $post->user_name }}
                     </div>
                     <div class="d-flex ms-auto" style="height: 20px;">
-                    <x-form action="{{ route('save') }}">
-                        <input type="hidden" name="post" value="{{ $post->id }}">
-                        <button class="border-0 bg-white" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ isSaved($post->id) ? __('Видалити з збережених') :__('Додати в збережені') }}">
-                            <img style="width: 20px;" src="{{ asset('save_icon.png') }}" alt="">
-                        </button>
-                    </x-form>
-                    <x-form action="{{ route('like') }}">
-                        <input type="hidden" name="post" value="{{ $post->id }}">
+                        <x-form action="{{ route('save') }}">
+                            <input type="hidden" name="post" value="{{ $post->id }}">
+                            <button class="border-0 bg-white" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ isSaved($post->id) ? __('Видалити з збережених') :__('Додати в збережені') }}">
+                                <img style="width: 20px;" src="{{ asset('save_icon.png') }}" alt="">
+                            </button>
+                        </x-form>
+                        <x-form action="{{ route('like') }}">
+                            <input type="hidden" name="post" value="{{ $post->id }}">
                         <button class="border-0 bg-white" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ isLiked($post->id) ? __('Забрати вподобайку') :__('Поставити вподобайку') }}">
                             <img style="width: 20px;" src="{{ asset('like_icon.png') }}" alt="">
                         </button>
                     </x-form>
-                    </div>
-                </x-title>
+                </div>
+            </x-title>
+            <div class="small text-muted">
+                {{ $post->created_at }}
+            </div>
             <img style="width: 500px;" class="rounded-3" src="{{ asset('/storage/'.$post->image) }}">
             <p>
                 {{ $post->text }}
             </p>
-            <div class="small text-muted">
-                {{ $post->published_at }}
-            </div>
+            <x-form action="comment">
+                <x-form-item>
+                    <x-input placeholder="{{ __('Прокоментуйте пост') }}" name="content" />
+                </x-form-item>
+                <x-form-item>
+                    <input type="hidden" name="post" value="{{ $post->id }}">
+                    <x-button class="btn-sm" type="submit">
+                        {{ __('Прокоментувати') }}
+                    </x-button>
+                </x-form-item>
+            </x-form>
         </x-card-body>
     </x-card>
     @endforeach
