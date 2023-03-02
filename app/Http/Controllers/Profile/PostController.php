@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ProfilePost;
 use App\Models\LikedPost;
 use App\Models\SavedPost;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;

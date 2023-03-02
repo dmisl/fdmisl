@@ -3,6 +3,7 @@
 use App\Models\FriendList;
 use App\Models\Request;
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\LikedPost;
 use App\Models\SavedPost;
 
@@ -75,6 +76,24 @@ if(!function_exists('name'))
         ->where('id', $id)
         ->first('name');
         return $user->name;
+    }
+}
+
+if(!function_exists('comments'))
+{
+    function comments($id, $limit = 5)
+    {
+        $comments = Comment::query()
+        ->where('post', $id)
+        ->limit($limit)
+        ->get();
+
+        if($comments)
+        {
+            return $comments;
+        }
+
+        return false;
     }
 }
 

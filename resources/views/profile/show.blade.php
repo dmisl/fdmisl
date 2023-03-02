@@ -70,7 +70,23 @@
             <p>
                 {{ $post->text }}
             </p>
-            <x-form action="comment">
+            <div class="comments border-bottom mb-3">
+            @if($comments = comments($post->id))
+            @foreach($comments as $comment)
+            <x-card class="mb-3">
+                <h6 class="m-0 pb-0 d-flex border-bottom-0">
+                    <x-avatar width="20px" user_id="{{ $comment->user }}"></x-avatar>
+                    {{ name($comment->user) }}
+                    <div class="ms-auto small text-muted">
+                        {{ $comment->created_at }}
+                    </div>
+                </h6>
+                <p style="font-size: 13px;" class="m-0">{{ $comment->content }}</p>
+            </x-card>
+            @endforeach
+            @endif
+            </div>
+            <x-form action="{{ route('comment')}}">
                 <x-form-item>
                     <x-input placeholder="{{ __('Прокоментуйте пост') }}" name="content" />
                 </x-form-item>

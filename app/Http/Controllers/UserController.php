@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\ProfilePost;
 use App\Models\Request as ModelsRequest;
 use App\Models\User;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -35,7 +36,10 @@ class UserController extends Controller
         
         if($user)
         {
-            $posts = ProfilePost::query()->where('posted_to', '=', $user->id)->get();
+            $posts = ProfilePost::query()
+            ->where('posted_to', '=', $user->id)
+            ->get();
+
             return view('profile.show', compact('user', 'posts'));
         }
         
