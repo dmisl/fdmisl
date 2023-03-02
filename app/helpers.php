@@ -3,6 +3,8 @@
 use App\Models\FriendList;
 use App\Models\Request;
 use App\Models\User;
+use App\Models\LikedPost;
+use App\Models\SavedPost;
 
 if(!function_exists('alert'))
 {
@@ -73,5 +75,41 @@ if(!function_exists('name'))
         ->where('id', $id)
         ->first('name');
         return $user->name;
+    }
+}
+
+if(!function_exists('isLiked'))
+{
+    function isLiked($post)
+    {
+        $liked = LikedPost::query()
+        ->where('post', $post)
+        ->where('user', auth()->user()->id)
+        ->first();
+
+        if($liked)
+        {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+if(!function_exists('isSaved'))
+{
+    function isSaved($post)
+    {
+        $saved = SavedPost::query()
+        ->where('post', $post)
+        ->where('user', auth()->user()->id)
+        ->first();
+
+        if($saved)
+        {
+            return true;
+        }
+        
+        return false;
     }
 }

@@ -48,12 +48,21 @@
                         {{ $post->user_name }}
                     </div>
                     <div class="d-flex ms-auto" style="height: 20px;">
-                    <x-form action="{{ route('post.like') }}">
-                        <button class="border-0 bg-white" type="submit"><img style="width: 20px;" src="{{ asset('save_icon.png') }}" alt=""></button>
+                    <x-form action="{{ route('save') }}">
+                        <input type="hidden" name="post" value="{{ $post->id }}">
+                        <button class="border-0 bg-white" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ isSaved($post->id) ? __('Видалити з збережених') :__('Додати в збережені') }}">
+                            <img style="width: 20px;" src="{{ asset('save_icon.png') }}" alt="">
+                        </button>
+                    </x-form>
+                    <x-form action="{{ route('like') }}">
+                        <input type="hidden" name="post" value="{{ $post->id }}">
+                        <button class="border-0 bg-white" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ isLiked($post->id) ? __('Забрати вподобайку') :__('Поставити вподобайку') }}">
+                            <img style="width: 20px;" src="{{ asset('like_icon.png') }}" alt="">
+                        </button>
                     </x-form>
                     </div>
                 </x-title>
-            <img src="{{ asset('/storage/'.$post->image) }}" alt="">
+            <img style="width: 500px;" class="rounded-3" src="{{ asset('/storage/'.$post->image) }}">
             <p>
                 {{ $post->text }}
             </p>

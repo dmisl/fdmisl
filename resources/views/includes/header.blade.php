@@ -15,10 +15,10 @@
         <li class="nav-item bg-grey rounded-circle me-2">
           <a class="nav-link active" aria-current="page" href="#"><img class="navbar-img" src="{{ asset('chat.png') }}"></a>
         </li>
-        <li class="nav-item dropdown bg-grey rounded-circle me-2">
-          <div class="btn-group dropstart">
+        {{-- <li class="nav-item dropdown bg-grey rounded-circle me-2"> --}}
+          <div class="btn-group dropstart" style="width:40px; height: 40px;">
             <a class="nav-link" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="navbar-img" src="{{ asset('/storage/avatar-'.auth()->user()->id.'.png') }}" alt="">
+              <img style="width:35px;" class="navbar-img rounded-circle" src="{{ avatar(auth()->user()->id) }}" alt="">
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
               <li>
@@ -36,7 +36,7 @@
               </li>
             </ul>
           </div>
-        </li>
+        {{-- </li> --}}
       </ul>
     </div>
   </div>
