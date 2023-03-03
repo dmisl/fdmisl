@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FriendList;
+use App\Models\ProfilePost;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,8 +11,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $friends = FriendList::query()->select('friend')->where('user', auth()->user()->id);
+
+        $posts = ProfilePost::query()->whereIn('user_id', $friends)->get();
+
+        $recommend = User::query()
+        ->whereNotIn('id', $friends)
+        ->where('id', '!=', auth()->user()->id)
+        ->first();
+
+        return view('home.index', compact('posts', 'recommend'));
     }
+
+
     public function autocomplete(Request $request)
     {
         $search = $request->input('search');

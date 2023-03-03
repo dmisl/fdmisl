@@ -38,7 +38,6 @@
             Надіслати
         </x-button>
     </x-form>
-
     @isset($posts)
     @foreach($posts as $post)
     <x-card>

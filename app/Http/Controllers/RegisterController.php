@@ -28,6 +28,7 @@ class RegisterController extends Controller
             'email' => $validated['email'],
             'name' => $validated['name'],
             'password' => bcrypt($validated['password']),
+            'status' => '',
         ]);
 
         Avatar::create($request->name)->save(storage_path('app/public/avatar-'.$user->id.'.png'));
