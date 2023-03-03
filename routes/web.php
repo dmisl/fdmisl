@@ -21,6 +21,7 @@ Route::post('register', [RegisterController::class, 'store'])->name('register.st
 Route::get('profile', [UserController::class, 'index'])->name('profile.index')->middleware('auth');
 Route::get('profile/{user}', [UserController::class, 'show'])->name('profile.show')->middleware('auth');
 Route::get('profile/{user}/friends', [UserController::class, 'friends'])->name('profile.friends')->middleware('auth');
+Route::post('status', [UserController::class, 'status'])->name('status');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('avatar', [UserController::class, 'avatar'])->name('avatar');
 Route::post('addFriend', [UserController::class, 'addFriend'])->name('addFriend');

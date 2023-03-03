@@ -132,3 +132,20 @@ if(!function_exists('isSaved'))
         return false;
     }
 }
+
+if(!function_exists('status'))
+{
+    function status($id)
+    {
+        $status = User::query()
+        ->where('id', $id)
+        ->first('status');
+
+        if($status)
+        {
+            return $status;
+        }
+
+        return false;
+    }
+}

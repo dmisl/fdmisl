@@ -61,6 +61,18 @@ class UserController extends Controller
 
         return abort(404);
     }
+    public function status(Request $request)
+    {
+        $validated = $request->validate([
+            'status' => ['required', 'string', 'max:100'],
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->status = $validated['status'];
+        $user->save();
+
+        return back();
+    }
     public function avatar(Request $request)
     {
         if($request->file('avatar')){

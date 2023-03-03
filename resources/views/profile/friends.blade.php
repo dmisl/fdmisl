@@ -35,6 +35,7 @@
                         <x-title class="border-bottom-0 mt-3">{{ name($friend['friend']) }}</x-title>
                     </a>
                 </div>
+            @if($friend['user'] == auth()->user()->id)
             <div class="col-md-1 ms-auto">
                 <div class="btn-group">
                     <a class="nav-link border rounded-3" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,20 +51,10 @@
                                 </x-button>
                             </x-form>
                         </li>
-                        <li>
-                            <x-button class="dropdown-item">asd</x-button>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}">
-                                {{ __('Вийти') }}
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
+            @endif
         </x-card-body>
     </x-card>
     @endforeach

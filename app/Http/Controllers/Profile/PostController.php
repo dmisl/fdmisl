@@ -36,6 +36,17 @@ class PostController extends Controller
 
         return back();
     }
+    public function delete(Request $request)
+    {
+        $remove = $request->input('remove');
+
+        ProfilePost::query()
+        ->where('id', $remove)
+        ->first()
+        ->delete();
+
+        return back();
+    }
     public function comment(Request $request)
     {
         $validated = $request->validate([
