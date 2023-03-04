@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -11,6 +12,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index')->middlewar
 Route::get('autocomplete', [HomeController::class, 'autocomplete'])->name('autocomplete')->middleware('auth');
 Route::post('search', [HomeController::class, 'search'])->name('search');
 
+Route::get('chat', [ChatController::class, 'index'])->name('chat.index');
+Route::get('chat/{user}', [ChatController::class, 'show'])->name('chat.show');
+Route::post('chat', [ChatController::class, 'store'])->name('chat.store');
+
 Route::get('login', [LoginController::class, 'index'])->name('login.index')->middleware('guest');
 Route::post('login', [LoginController::class, 'store'])->name('login.store');
 
@@ -21,6 +26,8 @@ Route::post('register', [RegisterController::class, 'store'])->name('register.st
 Route::get('profile', [UserController::class, 'index'])->name('profile.index')->middleware('auth');
 Route::get('profile/{user}', [UserController::class, 'show'])->name('profile.show')->middleware('auth');
 Route::get('profile/{user}/friends', [UserController::class, 'friends'])->name('profile.friends')->middleware('auth');
+Route::get('saved', [UserController::class, 'saved'])->name('saved')->middleware('auth');
+Route::get('liked', [UserController::class, 'liked'])->name('liked')->middleware('auth');
 Route::post('status', [UserController::class, 'status'])->name('status');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('avatar', [UserController::class, 'avatar'])->name('avatar');

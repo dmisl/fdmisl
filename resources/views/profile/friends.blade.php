@@ -31,10 +31,10 @@
                 <x-avatar user_id="{{ $friend['friend'] }}"></x-avatar>
             </div>
             <div class="col-md-5">
-                    <a href="{{ route('profile.show', $friend['friend']) }}">
-                        <x-title class="border-bottom-0 mt-3">{{ name($friend['friend']) }}</x-title>
-                    </a>
-                </div>
+                <a href="{{ route('profile.show', $friend['friend']) }}">
+                    <x-title class="border-bottom-0 mt-3">{{ name($friend['friend']) }}</x-title>
+                </a>
+            </div>
             @if($friend['user'] == auth()->user()->id)
             <div class="col-md-1 ms-auto">
                 <div class="btn-group">
@@ -42,6 +42,13 @@
                         <img class="navbar-img" src="{{ asset('settings.png') }}" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="text-decoration-none" href="{{ route('chat.show', $friend['friend']) }}">
+                                <button class="dropdown-item">
+                                    {{ __('Написати повідомлення') }}
+                                </button>
+                            </a>
+                        </li>
                         <li>
                             <x-form action="{{ route('removeFriend') }}">
                                 <input type="hidden" name="remove" value="{{ $friend['friend'] }}">

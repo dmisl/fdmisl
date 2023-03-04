@@ -88,10 +88,24 @@ class PostController extends Controller
     public function save(Request $request)
     {
         $post = $request->input('post');
-        SavedPost::create([
-            'user' => auth()->user()->id,
-            'post' => $post,
-        ]);
+
+        $isSaved = SavedPost::query()
+        ->where('user', auth()->user()->id)
+        ->where('post', $post)
+        ->first();
+
+        if($isSaved)
+        {
+            $isSaved->delete();
+        }
+        else
+        {
+            SavedPost::create([
+                'user' => auth()->user()->id,
+                'post' => $post,
+            ]);
+        }
+
         return back();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FriendList;
 use App\Models\ProfilePost;
+use App\Models\Request as ModelsRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,13 @@ class HomeController extends Controller
     {
         $friends = FriendList::query()->select('friend')->where('user', auth()->user()->id);
 
+        $requests = ModelsRequest::query()->select('request_to')->where('request_from', auth()->user()->id);
+
         $posts = ProfilePost::query()->whereIn('user_id', $friends)->get();
 
         $recommend = User::query()
         ->whereNotIn('id', $friends)
+        ->whereNotIn('id', $requests)
         ->where('id', '!=', auth()->user()->id)
         ->first();
 

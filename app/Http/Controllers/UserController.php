@@ -8,6 +8,8 @@ use App\Models\ProfilePost;
 use App\Models\Request as ModelsRequest;
 use App\Models\User;
 use App\Models\Comments;
+use App\Models\LikedPost;
+use App\Models\SavedPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -32,7 +34,7 @@ class UserController extends Controller
     {
         $user = User::query()
         ->where('id', $id)
-        ->first(['id', 'name']);
+        ->first();
         
         if($user)
         {
@@ -60,6 +62,22 @@ class UserController extends Controller
         }
 
         return abort(404);
+    }
+    public function saved()
+    {
+        $saved = SavedPost::query()->select('post')->where('user', auth()->user()->id);
+        
+        $posts = ProfilePost::query()->whereIn('id', $saved)->get();
+        
+        return view('profile.saved', compact('posts'));
+    }
+    public function liked()
+    {
+        $liked = LikedPost::query()->select('post')->where('user', auth()->user()->id);
+        
+        $posts = ProfilePost::query()->whereIn('id', $liked)->get();
+        
+        return view('profile.liked', compact('posts'));
     }
     public function status(Request $request)
     {

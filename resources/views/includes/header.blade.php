@@ -13,7 +13,9 @@
       </form>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item bg-grey rounded-circle me-2">
-          <a class="nav-link active" aria-current="page" href="#"><img class="navbar-img" src="{{ asset('chat.png') }}"></a>
+          <a class="nav-link active" aria-current="page" href="{{ route('chat.index') }}">
+            <img class="navbar-img" src="{{ asset('chat.png') }}">
+          </a>
         </li>
         {{-- <li class="nav-item dropdown bg-grey rounded-circle me-2"> --}}
           <div class="btn-group dropstart" style="width:40px; height: 40px;">
@@ -24,6 +26,16 @@
               <li>
                 <a class="dropdown-item" href="{{ route('profile.index') }}">
                   {{ __('Профіль') }}
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ route('saved') }}">
+                  {{ __('Збережені пости') }}
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ route('liked') }}">
+                  {{ __('Залайкані пости') }}
                 </a>
               </li>
               <li>

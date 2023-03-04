@@ -9,6 +9,9 @@
     <x-title>
         {{ $user->name }}
     </x-title>
+    <p class="small m-0">
+        {{ $user->status }}
+    </p>
     <a href="{{ route('profile.friends', $user->id) }}">
         {{ __('Список друзів') }}
     </a>

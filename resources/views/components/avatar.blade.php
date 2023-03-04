@@ -5,4 +5,4 @@
 
 <img style="width: {{ $width }};" src="{{ avatar($user_id) }}" {{ $attributes->class([
     'rounded-circle',    
-]) }}> 
+]) }}>
